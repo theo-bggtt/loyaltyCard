@@ -30,19 +30,5 @@ function AjouterCarteCamera() {
 
 
 function startLoginregister() {
-    document.getElementById('loginRegisterForm').style.display = 'block';
-}
-
-
-function toggleLoginForm() {
-    if (document.getElementById('confirmPassword').style.display === 'none') {
-        // change to register
-        document.getElementById('confirmPassword').style.display = 'block';
-        document.getElementById('loginRegisterButton').innerText = 'Register';
-    } else {
-        // change to login
-        document.getElementById('confirmPassword').style.display = 'none';
-        document.getElementById('loginRegisterButton').innerText = 'Login';
-        document.getElementById('changeType').innerText = 'Create an account';
-    }
+    window.location.href = 'login.html';
 }
