@@ -46,6 +46,8 @@
 - `/login.html` - pour le formulaire de login et register de l'utilisateur
 - `/js/index.js` - gestion des interactions principales de la page index
 - `/js/login.js` - gestion de login et de création de compte
+- `/js/card.js` - tout ce qui est en lien avec la gestion, ajout, suppression des cartes de l'utilisateur
+- `/js/db.js` - toutes les fonctions qui font des requêtes sql (séparé pour des raisons pratiques mais peut disparaitre et être intégré dans les autres .js)
 - `/css/*.css` - style
 
 ## Gestion du mode hors-connexion
@@ -55,13 +57,11 @@ Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connec
 ## Schéma de la base de donnéee
 
 ### Table 'users'
-
 - id
 - nomUtilisateur
 - password (hashé)
 
 ### Table 'cartes'
-
 - idcarte
 - nomcarte
 - numCarte
@@ -69,7 +69,7 @@ Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connec
 - idUtilisateur
 
 ### Table 'partage'
-
+- idPartage
 - idUtilisateur
 - idCarte
 - idInvité
