@@ -1,0 +1,207 @@
+{
+  "info": {
+    "name": "LoyaltyCard API",
+    "description": "Documentation de l'API REST du projet LoyaltyCard (gestion de comptes, cartes de fidélité et partage de cartes).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Compte",
+      "item": [
+        {
+          "name": "Créer un compte",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"theo\",\n  \"pass\": \"motdepasse123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": ["{{baseUrl}}"],
+              "path": ["account"]
+            },
+            "description": "Crée un nouveau compte utilisateur. Le mot de passe est hashé côté serveur avant stockage."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "url": { "raw": "{{baseUrl}}/account" }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": 1,\n  \"user\": \"theo\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Récupérer un compte",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/account?user=theo",
+              "host": ["{{baseUrl}}"],
+              "path": ["account"],
+              "query": [
+                { "key": "user", "value": "theo" }
+              ]
+            },
+            "description": "Récupère les informations d'un compte à partir du nom d'utilisateur."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/account?user=theo" }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": 1,\n  \"user\": \"theo\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cartes",
+      "item": [
+        {
+          "name": "Créer une carte",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1234567890123\",\n  \"CouleurCarte\": \"#FF6600\",\n  \"IdUtilisateur\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cards",
+              "host": ["{{baseUrl}}"],
+              "path": ["cards"]
+            },
+            "description": "Ajoute une nouvelle carte de fidélité pour l'utilisateur donné."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "url": { "raw": "{{baseUrl}}/cards" }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1234567890123\",\n  \"couleurCarte\": \"#FF6600\",\n  \"idUtilisateur\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Lister les cartes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/cards?idUtilisateur=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["cards"],
+              "query": [
+                { "key": "idCarte", "value": "", "disabled": true },
+                { "key": "idUtilisateur", "value": "1" }
+              ]
+            },
+            "description": "Récupère une carte précise via idCarte, ou toutes les cartes d'un utilisateur via idUtilisateur."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/cards?idUtilisateur=1" }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"idCarte\": 5,\n    \"nomCarte\": \"Migros Cumulus\",\n    \"numCarte\": \"1234567890123\",\n    \"couleurCarte\": \"#FF6600\",\n    \"idUtilisateur\": 1\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Partage",
+      "item": [
+        {
+          "name": "Partager une carte",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCarte\": 5,\n  \"idUtilisateur\": 1,\n  \"idInvite\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partage",
+              "host": ["{{baseUrl}}"],
+              "path": ["partage"]
+            },
+            "description": "Partage une carte de fidélité (idCarte) du compte propriétaire (idUtilisateur) vers un autre compte (idInvite)."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "url": { "raw": "{{baseUrl}}/partage" }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"idPartage\": 3,\n  \"idUtilisateur\": 1,\n  \"idCarte\": 5,\n  \"idInvite\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Lister les partages",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/partage?idInvite=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["partage"],
+              "query": [
+                { "key": "idInvite", "value": "2" },
+                { "key": "idCarte", "value": "", "disabled": true }
+              ]
+            },
+            "description": "Récupère les partages reçus par un invité (idInvite) ou liés à une carte précise (idCarte)."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/partage?idInvite=2" }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"idPartage\": 3,\n    \"idUtilisateur\": 1,\n    \"idCarte\": 5,\n    \"idInvite\": 2\n  }\n]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
