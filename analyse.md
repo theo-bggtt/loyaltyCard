@@ -25,6 +25,30 @@
 
 ## Planning prévisionnel
 
+# Pour le 23 novembre 2026
+- Terminer l'analyse (max 1h)
+- Terminer la documentation de l'api (max 30m)
+- Créer la base de donnée (1h)
+
+# Pour le 7 octobre 2026
+- Terminer la base de donnée (indeterminé)
+- Commencer l'api (2h)
+- Commencer le système de compte (1h)
+
+# Pour le 28 octobre 2026
+- Terminer l'api (1h)
+- Terminer le système de compte (1h-2h)
+- Travailler sur l'interface (2h)
+- Travailler sur le partage de carte (1h)
+
+# Pour le 13 decembre 2026
+- Terminer l'interface (2h)
+- Terminer le partage de carte (2h)
+- Terminer l'application avec finitions(3h)
+
+# Pour le 3 Janvier 2027
+- Rédiger le rapport final (indéterminé)
+
 Échéances imposées :
 
 | Livrable            | Échéance   |
@@ -44,6 +68,11 @@
 
 - `/index.html` - pour la page principale avec l'affichage de carte et l'ajout de carte
 - `/login.html` - pour le formulaire de login et register de l'utilisateur
+- `/api/config/` - plusieurs fichier de config et d'environnement
+- `/api/index.php` - est le retour principal de l'api
+- `/api/account.php` - gère le GET et le POST des comptes
+- `/api/cards.php` - gère le GET et le POST des cartes
+- `/api/partage.php` - gère le GET et le POST des partages des cartes
 - `/js/index.js` - gestion des interactions principales de la page index
 - `/js/login.js` - gestion de login et de création de compte
 - `/js/card.js` - tout ce qui est en lien avec la gestion, ajout, suppression des cartes de l'utilisateur
