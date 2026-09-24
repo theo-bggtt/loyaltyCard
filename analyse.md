@@ -14,10 +14,13 @@
 ### Optionnel
 
 - **Ajouter un code secret pour chaque carte** : code PIN à 4 chiffres associé à une carte, affiché uniquement après saisie du code.
-- **Partager la carte à un autre utilisateur** : envoi d'une copie de la carte au compte destinataire (recherche par nom d'utilisateur).
+- **Partager la carte à un autre utilisateur** : donne accès à la carte au compte destinataire (recherche par nom d'utilisateur). C'est un lien et pas une copie : les modifications et la suppression faites par le propriétaire sont visibles par l'invité.
 - **Jeux blackjack pour augmenter le nombre de carte maximum** : mini-jeu qui augmente la limite de cartes du compte en cas de victoire.
 
-### Fonctionnalités techniques
+
+
+
+### Fonctionnalitechniques
 
 - Création de compte / connexion / déconnexion.
 - Mode hors-ligne complet : voir, ajouter, modifier et supprimer. Possibles sans réseau, synchronisation automatique au retour de la connexion.
@@ -89,12 +92,15 @@ Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connec
 - id
 - nomUtilisateur
 - password (hashé)
+- token (généré au login, vidé au logout)
+- maxCartes
 
 ### Table 'cartes'
 - idcarte
 - nomcarte
 - numCarte
 - couleurCarte
+- pin (optionnel)
 - idUtilisateur
 
 ### Table 'partage'
@@ -105,10 +111,25 @@ Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connec
 
 ## API REST
 
+Toutes les routes sauf `POST /account` et `POST /login` demandent le header `Authorization: Bearer <token>`. L'utilisateur est identifié par le token, jamais par un id envoyé dans la requête. Sans token valide : `401`.
+
+Les erreurs renvoient `{ "error": "message" }` (400 champ manquant, 401 non connecté, 404 introuvable, 409 nom d'utilisateur déjà pris).
+
 ### POST /account
 
 - user
 - pass
+
+### POST /login
+
+- user
+- pass
+
+Renvoie le token.
+
+### POST /logout
+
+Invalide le token.
 
 ### GET /account
 
@@ -119,18 +140,35 @@ Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connec
 - nomCarte
 - numCarte
 - CouleurCarte
-- IdUtilisateur
+- pin (optionnel)
 
 ### GET /cards
 
-- idCarte / idUtilisateur
+- idCarte (optionnel, sinon toutes les cartes de l'utilisateur connecté)
+
+### PUT /cards
+
+- idCarte
+- nomCarte
+- numCarte
+- CouleurCarte
+- pin
+
+### DELETE /cards
+
+- idCarte
+
+Supprime aussi les partages liés.
 
 ### POST /partage
 
 - idCarte
-- idUtilisateur
 - idInvité
 
-### get /partage
+### GET /partage
 
-- idInvité / idCarte
+- idCarte (optionnel, sinon les cartes partagées avec l'utilisateur connecté)
+
+### DELETE /partage
+
+- idPartage

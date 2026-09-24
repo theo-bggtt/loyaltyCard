@@ -1,0 +1,664 @@
+{
+  "info": {
+    "_postman_id": "a9d889a7-176e-4c91-b0bd-e85b9e2b9bc9",
+    "name": "LoyaltyCard API",
+    "description": "Documentation de l'API REST du projet LoyaltyCard (gestion de comptes, cartes de fidélité et partage de cartes).\n\n**Authentification** : `POST /login` renvoie un token. Toutes les autres routes (sauf `POST /account`) demandent le header `Authorization: Bearer <token>`. L'utilisateur est identifié par le token, jamais par un id envoyé dans la requête.\n\n**Erreurs** : toutes les erreurs renvoient `{ \"error\": \"message\" }`. Une route protégée appelée sans token valide renvoie `401`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44022580",
+    "_collection_link": "https://go.postman.co/collection/44022580-a9d889a7-176e-4c91-b0bd-e85b9e2b9bc9?source=collection_link"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Compte",
+      "item": [
+        {
+          "name": "Créer un compte",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"theo\",\n  \"pass\": \"motdepasse123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ]
+            },
+            "description": "Crée un nouveau compte utilisateur. Le mot de passe est hashé côté serveur avant stockage. Ne nécessite pas de token."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"user\": \"theo\"\n}"
+            },
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Nom d'utilisateur déjà pris\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Se connecter",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"theo\",\n  \"pass\": \"motdepasse123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "description": "Vérifie le nom d'utilisateur et le mot de passe, puis renvoie un token à envoyer dans le header `Authorization: Bearer <token>` pour toutes les autres requêtes. Ne nécessite pas de token."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"user\": \"theo\",\n  \"token\": \"3f9a1c7e5b2d4a8f9e0c6b1d7a3e5f2c\"\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Identifiants incorrects\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Se déconnecter",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            },
+            "description": "Invalide le token de l'utilisateur connecté."
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Récupérer un compte",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/account?user=theo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ],
+              "query": [
+                {
+                  "key": "user",
+                  "value": "theo"
+                }
+              ]
+            },
+            "description": "Récupère les informations d'un compte à partir du nom d'utilisateur (sert notamment à trouver l'id d'un invité avant un partage). `maxCartes` est le nombre maximum de cartes du compte."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"user\": \"theo\",\n  \"maxCartes\": 10\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Utilisateur introuvable\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cartes",
+      "item": [
+        {
+          "name": "Créer une carte",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1111111111111\",\n  \"CouleurCarte\": \"#FF6600\",\n  \"pin\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ]
+            },
+            "description": "Ajoute une nouvelle carte de fidélité à l'utilisateur connecté. `pin` est optionnel (code à 4 chiffres)."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1234567890123\",\n  \"couleurCarte\": \"#FF6600\",\n  \"pin\": \"1234\",\n  \"idUtilisateur\": 1\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Champ manquant : numCarte\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Lister les cartes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idCarte",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Sans paramètre : renvoie toutes les cartes de l'utilisateur connecté. Avec `idCarte` : renvoie cette carte, si l'utilisateur en est le propriétaire ou l'invité."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "[\n  {\n    \"idCarte\": 5,\n    \"nomCarte\": \"Migros Cumulus\",\n    \"numCarte\": \"1234567890123\",\n    \"couleurCarte\": \"#FF6600\",\n    \"pin\": \"1234\",\n    \"idUtilisateur\": 1\n  }\n]"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Carte introuvable\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Modifier une carte",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1234567890123\",\n  \"CouleurCarte\": \"#00AA55\",\n  \"pin\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ]
+            },
+            "description": "Modifie le nom, le numéro, la couleur ou le PIN d'une carte. Seul le propriétaire peut modifier sa carte. `pin: null` retire le code."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1234567890123\",\n  \"couleurCarte\": \"#00AA55\",\n  \"pin\": null,\n  \"idUtilisateur\": 1\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Carte introuvable\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Supprimer une carte",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cards?idCarte=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idCarte",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Supprime une carte. Seul le propriétaire peut la supprimer. Les partages liés à cette carte sont supprimés aussi."
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Carte introuvable\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Partage",
+      "item": [
+        {
+          "name": "Partager une carte",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCarte\": 5,\n  \"idInvite\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partage"
+              ]
+            },
+            "description": "Partage une carte de l'utilisateur connecté (idCarte) avec un autre compte (idInvite). Le partage est un lien, pas une copie : les modifications et la suppression de la carte par le propriétaire sont visibles par l'invité."
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"idPartage\": 3,\n  \"idUtilisateur\": 1,\n  \"idCarte\": 5,\n  \"idInvite\": 2\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Carte ou invité introuvable\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Lister les partages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/partage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partage"
+              ],
+              "query": [
+                {
+                  "key": "idCarte",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Sans paramètre : renvoie les cartes partagées avec l'utilisateur connecté, avec les données de la carte. Avec `idCarte` : renvoie les partages de cette carte (propriétaire uniquement)."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "[\n  {\n    \"idPartage\": 3,\n    \"idUtilisateur\": 1,\n    \"idCarte\": 5,\n    \"idInvite\": 2,\n    \"carte\": {\n      \"nomCarte\": \"Migros Cumulus\",\n      \"numCarte\": \"1234567890123\",\n      \"couleurCarte\": \"#FF6600\"\n    }\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Supprimer un partage",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/partage?idPartage=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partage"
+              ],
+              "query": [
+                {
+                  "key": "idPartage",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "Supprime un partage. Possible par le propriétaire de la carte (retirer l'accès) ou par l'invité (retirer la carte de sa liste)."
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Partage introuvable\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
