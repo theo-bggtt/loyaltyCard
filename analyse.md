@@ -4,26 +4,26 @@
 
 ### Principal
 
-- **Lister les cartes de fidélités** : écran d'accueil affichant toutes les cartes de l'utilisateur lié à son compte.
-- **Générer un qr-code fonctionnel pour chaque carte (hors ligne compatible)** : le code est généré localement en JavaScript à partir du numéro stocké, aucune requête réseau n'est nécessaire pour l'afficher en caisse, mais le réseau est nécessaire pour synchroniser
-- **Un menu d'ajout de carte de fidélité** : soit par scan avec la caméra (le plugin renvoie la valeur et le format), soit par saisie manuelle du numéro.
+- **Lister les cartes** : écran d'accueil qui affiche toutes les cartes de l'utilisateur lié à son compte.
+- **Générer un qr-code fonctionnel pour chaque carte (hors ligne aussi)** : le code est généré en local à partir du numéro stocké, aucun réseau n'est nécessaire pour l'afficher, mais le réseau est nécessaire pour synchroniser
+- **Un menu d'ajout de carte** : soit par scan avec la caméra, soit par saisie manuelle.
 - **Persistance des cartes (inter-appareil)** : après connexion sur un nouvel appareil, les cartes sont retéléchargées depuis le serveur, à travers le compte de l'utilisateur.
 - **Couleurs, noms et numéro personnalisable des cartes** : chaque carte a un nom, une couleur choisie dans une palette et un numéro modifiable.
 - **Supréssion des cartes** : suppression locale immédiate puis serveur et autres appareils connectés et partagés.
 
 ### Optionnel
 
-- **Ajouter un code secret pour chaque carte** : code PIN à 4 chiffres associé à une carte, affiché uniquement après saisie du code.
-- **Partager la carte à un autre utilisateur** : donne accès à la carte au compte destinataire (recherche par nom d'utilisateur). C'est un lien et pas une copie : les modifications et la suppression faites par le propriétaire sont visibles par l'invité.
+- **Ajouter un code secret pour chaque carte** : code PIN à 4 chiffres associé à une carte.
+- **Partager la carte à un autre utilisateur** : donne accès à la carte au compte destinataire (recherche par nom d'utilisateur).
 - **Jeux blackjack pour augmenter le nombre de carte maximum** : mini-jeu qui augmente la limite de cartes du compte en cas de victoire.
 
 
 
 
-### Fonctionnalitechniques
+### Fonctionnalité techniques
 
 - Création de compte / connexion / déconnexion.
-- Mode hors-ligne complet : voir, ajouter, modifier et supprimer. Possibles sans réseau, synchronisation automatique au retour de la connexion.
+- Mode hors-ligne complet : voir, ajouter, modifier et supprimer.
 - Notification locale quand une carte est reçue en partage ou lors d'une nouvelle connexion sur le compte.
 
 ## Planning prévisionnel
@@ -112,8 +112,8 @@ Le réseau ne cera nécessaire que quand l'utilisateur voudra se connecter ou cr
 ## API REST
 
 - Auth : header `Authorization: Bearer <token>` partour, sauf POST /account et POST /login
-- User logé par token, jamais par id dans la requête
-- Erreurs : `{ "error": message }`, 400 champ manquant / 401 token invalide / 404 introuvable / 409 user déjà pris
+- User logé par token, pas par id
+- Erreurs : `{ "error": message }`
 
 ### POST /account
 
