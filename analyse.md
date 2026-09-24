@@ -84,36 +84,36 @@
 
 ## Gestion du mode hors-connexion
 
-Le réseau ne cera nécessaire que au moment ou l'utilisateur souhaite se connecter ou créer un compte, dans le cas contraire aucun réseau n'est nécessaire. Quand l'utilisateur se connecte à son compte, l'application synchronisera ses cartes avec celle de son telephone et vise-verca.
+Le réseau ne cera nécessaire que quand l'utilisateur voudra se connecter ou créer un compte, sinon aucun réseau est nécessaire. Quand l'utilisateur se connecte à son compte, l'application sync ses cartes avec celle de son telephone et inversement.
 
 ## Schéma de la base de donnéee
 
 ### Table 'users'
-- id
-- nomUtilisateur
+- id 
+- nomUtilisateur (unique)
 - password (hashé)
-- token (généré au login, vidé au logout)
+- token (set au login, null au logout)
 - maxCartes
 
 ### Table 'cartes'
-- idcarte
+- idcarte 
 - nomcarte
 - numCarte
 - couleurCarte
 - pin (optionnel)
-- idUtilisateur
+- idUtilisateur (Fk)
 
-### Table 'partage'
-- idPartage
-- idUtilisateur
-- idCarte
-- idInvité
+### Table 'partage' (beaucoup de foreign key)
+- idPartage 
+- idUtilisateur (Fk)
+- idCarte (Fk)
+- idInvité (Fk)
 
 ## API REST
 
-Toutes les routes sauf `POST /account` et `POST /login` demandent le header `Authorization: Bearer <token>`. L'utilisateur est identifié par le token, jamais par un id envoyé dans la requête. Sans token valide : `401`.
-
-Les erreurs renvoient `{ "error": "message" }` (400 champ manquant, 401 non connecté, 404 introuvable, 409 nom d'utilisateur déjà pris).
+- Auth : header `Authorization: Bearer <token>` partour, sauf POST /account et POST /login
+- User logé par token, jamais par id dans la requête
+- Erreurs : `{ "error": message }`, 400 champ manquant / 401 token invalide / 404 introuvable / 409 user déjà pris
 
 ### POST /account
 
@@ -124,16 +124,16 @@ Les erreurs renvoient `{ "error": "message" }` (400 champ manquant, 401 non conn
 
 - user
 - pass
-
-Renvoie le token.
+- Renvoie : token
 
 ### POST /logout
 
-Invalide le token.
+- Invalide le token
 
 ### GET /account
 
 - user
+- Renvoie : id, user, maxCartes
 
 ### POST /cards
 
@@ -144,9 +144,9 @@ Invalide le token.
 
 ### GET /cards
 
-- idCarte (optionnel, sinon toutes les cartes de l'utilisateur connecté)
+- idCarte (si vide, toutes les cartes du user)
 
-### PUT /cards
+### PUT /cards (propriétaire uniquement)
 
 - idCarte
 - nomCarte
@@ -154,21 +154,19 @@ Invalide le token.
 - CouleurCarte
 - pin
 
-### DELETE /cards
+### DELETE /cards (propriétaire de la carte seulement)
 
-- idCarte
-
-Supprime aussi les partages liés.
+- idCarte 
 
 ### POST /partage
 
 - idCarte
 - idInvité
 
-### GET /partage
+### GET /partage (sans param : cartes partagées avec le user)
 
-- idCarte (optionnel, sinon les cartes partagées avec l'utilisateur connecté)
+- idCarte (optionnel, propriétaire uniquement)
 
-### DELETE /partage
+### DELETE /partage (propriétaire ou invité)
 
 - idPartage

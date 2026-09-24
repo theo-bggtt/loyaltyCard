@@ -256,7 +256,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1111111111111\",\n  \"CouleurCarte\": \"#FF6600\",\n  \"pin\": \"1234\"\n}",
+              "raw": "{\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1111111111111\",\n  \"CouleurCarte\": \"#000000\",\n  \"pin\": \"1234\"\n}",
               "options": {
                 "raw": {
                   "language": "text"
@@ -289,7 +289,7 @@
               "_postman_previewlanguage": "Text",
               "header": [],
               "cookie": [],
-              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1234567890123\",\n  \"couleurCarte\": \"#FF6600\",\n  \"pin\": \"1234\",\n  \"idUtilisateur\": 1\n}"
+              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros Cumulus\",\n  \"numCarte\": \"1111111111111\",\n  \"couleurCarte\": \"#000000\",\n  \"pin\": \"1234\",\n  \"idUtilisateur\": 1\n}"
             },
             {
               "name": "400 Bad Request",
@@ -347,7 +347,7 @@
               "_postman_previewlanguage": "Text",
               "header": [],
               "cookie": [],
-              "body": "[\n  {\n    \"idCarte\": 5,\n    \"nomCarte\": \"Migros Cumulus\",\n    \"numCarte\": \"1234567890123\",\n    \"couleurCarte\": \"#FF6600\",\n    \"pin\": \"1234\",\n    \"idUtilisateur\": 1\n  }\n]"
+              "body": "[\n  {\n    \"idCarte\": 5,\n    \"nomCarte\": \"Migros Cumulus\",\n    \"numCarte\": \"1111111111111\",\n    \"couleurCarte\": \"#000000\",\n    \"pin\": \"1234\",\n    \"idUtilisateur\": 1\n  }\n]"
             },
             {
               "name": "404 Not Found",
@@ -379,7 +379,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1234567890123\",\n  \"CouleurCarte\": \"#00AA55\",\n  \"pin\": null\n}"
+              "raw": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1111111111111\",\n  \"CouleurCarte\": \"#000000\",\n  \"pin\": null\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/cards",
@@ -407,7 +407,7 @@
               "_postman_previewlanguage": "Text",
               "header": [],
               "cookie": [],
-              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1234567890123\",\n  \"couleurCarte\": \"#00AA55\",\n  \"pin\": null,\n  \"idUtilisateur\": 1\n}"
+              "body": "{\n  \"idCarte\": 5,\n  \"nomCarte\": \"Migros\",\n  \"numCarte\": \"1111111111111\",\n  \"couleurCarte\": \"#000000\",\n  \"pin\": null,\n  \"idUtilisateur\": 1\n}"
             },
             {
               "name": "404 Not Found",
@@ -587,7 +587,7 @@
               "_postman_previewlanguage": "Text",
               "header": [],
               "cookie": [],
-              "body": "[\n  {\n    \"idPartage\": 3,\n    \"idUtilisateur\": 1,\n    \"idCarte\": 5,\n    \"idInvite\": 2,\n    \"carte\": {\n      \"nomCarte\": \"Migros Cumulus\",\n      \"numCarte\": \"1234567890123\",\n      \"couleurCarte\": \"#FF6600\"\n    }\n  }\n]"
+              "body": "[\n  {\n    \"idPartage\": 3,\n    \"idUtilisateur\": 1,\n    \"idCarte\": 5,\n    \"idInvite\": 2,\n    \"carte\": {\n      \"nomCarte\": \"Migros Cumulus\",\n      \"numCarte\": \"1111111111111\",\n      \"couleurCarte\": \"#000000\"\n    }\n  }\n]"
             }
           ]
         },
