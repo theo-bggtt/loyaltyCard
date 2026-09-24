@@ -17,10 +17,10 @@
 - **Partager la carte à un autre utilisateur** : envoi d'une copie de la carte au compte destinataire (recherche par nom d'utilisateur).
 - **Jeux blackjack pour augmenter le nombre de carte maximum** : mini-jeu qui augmente la limite de cartes du compte en cas de victoire.
 
-### Fonctionnalités techniques transverses
+### Fonctionnalités techniques
 
 - Création de compte / connexion / déconnexion.
-- Mode hors-ligne complet : consultation, ajout, modification et suppression possibles sans réseau, synchronisation automatique au retour de la connexion.
+- Mode hors-ligne complet : voir, ajouter, modifier et supprimer. Possibles sans réseau, synchronisation automatique au retour de la connexion.
 - Notification locale quand une carte est reçue en partage ou lors d'une nouvelle connexion sur le compte.
 
 ## Planning prévisionnel
