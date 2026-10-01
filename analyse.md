@@ -5,19 +5,17 @@
 ### Principal
 
 - **Lister les cartes** : écran d'accueil qui affiche toutes les cartes de l'utilisateur lié à son compte.
-- **Générer un qr-code fonctionnel pour chaque carte (hors ligne aussi)** : le code est généré en local à partir du numéro stocké, aucun réseau n'est nécessaire pour l'afficher, mais le réseau est nécessaire pour synchroniser
+- **Générer un qr-code, et les autres format de barcode fonctionnel pour chaque carte (hors ligne aussi)** : le code est généré en local à partir du numéro stocké, aucun réseau n'est nécessaire pour l'afficher, mais le réseau est nécessaire pour synchroniser
 - **Un menu d'ajout de carte** : soit par scan avec la caméra, soit par saisie manuelle.
 - **Persistance des cartes (inter-appareil)** : après connexion sur un nouvel appareil, les cartes sont retéléchargées depuis le serveur, à travers le compte de l'utilisateur.
 - **Couleurs, noms et numéro personnalisable des cartes** : chaque carte a un nom, une couleur choisie dans une palette et un numéro modifiable.
 - **Supréssion des cartes** : suppression locale immédiate puis serveur et autres appareils connectés et partagés.
+- **Synchronisation inter-appareil** : Lors de l'ajout d'une carte ou de supprésion et partage, une requête est envoyé si le réseau est disponible, sinon elle est en attente jusqu'au retour du réseau.
 
 ### Optionnel
 
-- **Ajouter un code secret pour chaque carte** : code PIN à 4 chiffres associé à une carte.
+- **Ajouter un PIN pour chaque carte** : code PIN associé à une carte (exemple: carte cadeau), pas caché.
 - **Partager la carte à un autre utilisateur** : donne accès à la carte au compte destinataire (recherche par nom d'utilisateur).
-- **Jeux blackjack pour augmenter le nombre de carte maximum** : mini-jeu qui augmente la limite de cartes du compte en cas de victoire.
-
-
 
 
 ### Fonctionnalité techniques
@@ -28,7 +26,7 @@
 
 ## Planning prévisionnel
 
-# Pour le 23 novembre 2026
+# Pour le 23 septembre 2026
 - Terminer l'analyse (max 1h)
 - Terminer la documentation de l'api (max 30m)
 - Créer la base de donnée (1h)
@@ -64,8 +62,9 @@
 
 ## Bibliothèque et plugins
 
-- **StarleyDev/barcodescanner-sdk31** - Permet de scanner avec la camera, tout type de qr code, code barre pour ajouter une nouvelle carte
-- **SQLite** - Pour gérer les utilisateurs (base de donnée) ainsi que leur carte et le partage de leur cartes
+- **[StarleyDev/barcodescanner-sdk31](https://github.com/StarleyDev/barcodescanner-sdk31)** - Permet de scanner avec la camera, tout type de qr code, code barre pour ajouter une nouvelle carte.
+- **SQLite** - Pour gérer les utilisateurs (base de donnée) ainsi que leur carte et le partage de leur cartes.
+- **[QRCodeJS](https://github.com/AbobosSoftware/cordova-plugin-qrcodejs)** - Permet de regénérer les qr-code et les code barre pour afficher les cartes sur l'application.
 
 ## Architecture du projet
 
@@ -86,7 +85,7 @@
 
 Le réseau ne cera nécessaire que quand l'utilisateur voudra se connecter ou créer un compte, sinon aucun réseau est nécessaire. Quand l'utilisateur se connecte à son compte, l'application sync ses cartes avec celle de son telephone et inversement.
 
-## Schéma de la base de donnéee
+## Schéma de la base de donnéee (serveur)
 
 ### Table 'users'
 - id 
