@@ -1,0 +1,8 @@
+- Au lieu de mettre localhost dans les liens, mettre un url de base.
+- Nettoyer bearer token, ou est-ce nécessaire. Nommé "token" ou "bearer".
+- POST cards: Au singulier dans url POST (on crée UNE carte, pas plusieurs)
+- GET compte : "Comment connaitre username? Deeplink pour initiation? ". Enlever la limite de carte.
+- POST cards : ajouter le type de code (ean.13, qr, etc...)
+- PUT card : au lieu de "PUT /cards -> PUT /card/5" id de la carte dans le lien. Enlever le numéro de la carte, l'utilisateur ne change pas le qr code, il change le nom, couleur, etc mais pas le réel qr code.
+- DELETE cards : au lieu de "DELETE /cards -> DELETE /card/5" pareil que pour le put.
+- DELETE partage : au lieu de "DELETE /partage?idpartage=3 -> DELETE /partage/3" pareil que au dessus.
