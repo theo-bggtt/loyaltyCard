@@ -1,0 +1,7 @@
+# Envoie toutes les requêtes vers index.php (ex : /~baggi/api/account)
+RewriteEngine On
+# Obligatoire pour un dossier ~utilisateur, à adapter si l'API change de place
+RewriteBase /~baggi/api/
+# Les vrais fichiers (s'il y en a) sont servis normalement
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

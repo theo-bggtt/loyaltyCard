@@ -17,6 +17,11 @@ require __DIR__ . '/Compte/login.php';
 
 // Chemin demandé sans les paramètres, par exemple "/account" pour "/account?user=theo"
 $chemin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Sur le serveur l'API est dans un sous-dossier ("/~baggi/api/account"),
+// on enlève ce dossier pour garder seulement "/account".
+// En local avec php -S, le dossier est vide et rien n'est enlevé.
+$dossierApi = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$chemin = substr($chemin, strlen($dossierApi));
 $methode = $_SERVER['REQUEST_METHOD'];
 
 if ($chemin === '/account' && $methode === 'POST') {
